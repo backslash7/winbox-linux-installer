@@ -16,8 +16,9 @@ Available options:
 -h, --help                   Print this help and exit.
 -v, --version                Print version information.
 -d                           Print debugging information.
--f, --flavour                Choose which Winbox flavour to download. Defaults to 64-bit.
 --no-color, --no-colour      Disable color output.
+-f, --flavour                Choose which Winbox flavour to download. 
+                             Defaults to 64-bit.
 EOF
 exit
 }
@@ -72,7 +73,6 @@ parse_params() {
         shift
     done
     
-    # TODO: Check valid flavour is selected
     if [ "${flavour}" != "32" ] && [ "${flavour}" != "64" ]
     then
         die "Unknown flavour: ${flavour}"
@@ -168,14 +168,11 @@ check_for "curl"
 check_for "wine"
 check_for "xdg-desktop-menu"
 check_for "xdg-icon-resource"
-msg "[${GREEN}OK${NOFORMAT}] Dependencies check"
+msg "[${GREEN}OK${NOFORMAT}] Dependencies checked"
 
 download_winbox "$flavour" && msg "[${GREEN}OK${NOFORMAT}] Winbox downloaded"
 install_winbox && msg "[${GREEN}OK${NOFORMAT}] Winbox installed"
-
 install_icons && msg "[${GREEN}OK${NOFORMAT}] Icons installed"
-
 install_launcher && msg "[${GREEN}OK${NOFORMAT}] Launcher installed"
 xdg_update && msg "[${GREEN}OK${NOFORMAT}] XSD resources updated."
-
-msg "All done..."
+msg "All done, enjoy!"
